@@ -1,0 +1,16 @@
+{
+  "name": "nord-crud-nedb-student-system",
+  "version": "1.0.0",
+  "description": "\"student system\",",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Haseeb Arif",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.1",
+    "nedb": "^1.8.0",
+    "nodemon": "^2.0.19"
+  }
+}
