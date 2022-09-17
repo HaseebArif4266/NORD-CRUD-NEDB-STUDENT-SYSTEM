@@ -31,4 +31,46 @@ router.post('/', async(req,res) => {
     }
 })
 
+ //Get one student data by their ID
+ //Endpoint: /api/v1/students/213213
+
+ router.get('/:id', async(req, res) => {
+    try{
+        await students.findOne( {_id: req.params.id}, (err, data) => {
+            if(err){
+                return res.status(500).json( {message: "Error in the DB"})
+            }
+            if(data!=null){
+                res.status(200).send(data)
+            }
+            else{
+                res.status(400).json( {message: "Student with this ID does not exist"})
+            }
+        })
+    }
+    catch{
+        res.status(200).json( {message: "Error in this API"})
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ })
+
+
+
+
+
 module.exports = router;
