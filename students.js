@@ -78,7 +78,39 @@ router.post('/', async(req,res) => {
     }
 })
 
- 
+//homework 1
+// GET the average score for all the students
+// Endpoint: /api/v1/students/avgScore
+
+
+
+//homework 2
+  // first check if student with this name is already in the database
+        // If not, Add this student
+        // If yes, tell frontend that this student name already exists.
+
+ router.get('/name/:nameVar', async(req, res) => {
+    try{
+        await students.findOne( {name: req.params.nameVar}, (err, data) => {
+
+            if(err){
+                return res.status(500).json( { message: "Error in the DB"})
+            }
+            
+            if( (data!=null) && (data.lenght>0)  ){
+                res.status(200).send(data)
+            }
+            else{         
+                res.status(400).json( { message: "this student is already existed"})
+            }
+        })
+    }
+    catch{
+        res.status(500).json( { message: "Error in this API"})
+    }
+})
+
+ //http://localhost:4300/api/v1/students/name/teststudent//
 
  router.patch('/:idVariable', async(req,res) => {
     try{
