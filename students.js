@@ -53,6 +53,33 @@ router.post('/', async(req,res) => {
     }
  })
 
+
+ // Get all students from particular city
+ // Endpoint: /api/v1/students/Karachi
+
+ router.get('/city/:cityVar', async(req, res) => {
+    try{
+        await students.find( {city: req.params.cityVar}, (err, data) => {
+
+            if(err){
+                return res.status(500).json( { message: "Error in the DB"})
+            }
+            
+            if( (data!=null) && (data.lenght>0)  ){
+                res.status(200).send(data)
+            }
+            else{         
+                res.status(400).json( { message: "No Student from this city"})
+            }
+        })
+    }
+    catch{
+        res.status(500).json( { message: "Error in this API"})
+    }
+})
+
+ 
+
  router.patch('/:idVariable', async(req,res) => {
     try{
         await students.update({_id: req.params.idVariable}, req.body, {upsert: false}, (err, IsDataUpdated) => {
@@ -87,6 +114,23 @@ router.delete('/:idVariable', async(req,res) => {
     }
     catch{
         res.status(500).json( {message: "Error in this API"})
+    }
+})
+
+router.delete('/', async(req,res) => {
+    try{
+        await students.remove({}, {multi:true}, (err, isDataDeleted) => {
+            if(err){ return res.status(500).json( { message: "Error in the DB"}) };
+            if(isDataDeleted){          
+                res.status(200).json({message: "Student Deleted Successfully"})
+            }
+            else{       
+                res.status(400).json( { message: "No Student Data in the DB"})
+            }
+        })
+    }
+    catch{
+        res.status(500).json( { message: "Error in this API"})
     }
 })
 
