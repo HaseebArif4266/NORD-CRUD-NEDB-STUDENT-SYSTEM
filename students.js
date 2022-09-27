@@ -81,6 +81,22 @@ router.post('/', async(req,res) => {
 //homework 1
 // GET the average score for all the students
 // Endpoint: /api/v1/students/avgScore
+router.get('/scores/avgScore', async(req, res) => {
+    var x = 0;
+    try {
+        await students.find({}, function (err, docs) {
+            docs.map((value) => {
+                x += value.score
+                console.log(value)
+                
+            })
+            res.status(200).json({ "the calculated average score is " : x / docs.lenght })
+        })
+    }
+    catch (err) {
+        res.status(500).send("Error in database : " + err)
+    }
+})
 
 
 
